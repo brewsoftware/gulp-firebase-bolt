@@ -1,0 +1,28 @@
+{
+  "name": "gulp-firebase-bolt",
+  "version": "1.0.0",
+  "description": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brewsoftware/gulp-firebase-bolt.git"
+  },
+  "keywords": [
+    "Firebase",
+    "Bolt",
+    "gulp"
+  ],
+  "author": "Jason Turner (BrewSoftware)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/brewsoftware/gulp-firebase-bolt/issues"
+  },
+  "homepage": "https://github.com/brewsoftware/gulp-firebase-bolt#readme",
+  "devDependencies": {
+    "firebase": "^2.4.2",
+    "firebase-bolt": "git://github.com/brewsoftware/bolt.git"
+  }
+}
