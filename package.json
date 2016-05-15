@@ -23,6 +23,12 @@
   "homepage": "https://github.com/brewsoftware/gulp-firebase-bolt#readme",
   "devDependencies": {
     "firebase": "^2.4.2",
-    "firebase-bolt": "git://github.com/brewsoftware/bolt.git"
+    "firebase-bolt": "git://github.com/brewsoftware/bolt.git",
+    "gulp": "^3.9.1",
+    "path": "^0.12.7"
+  },
+  "dependencies": {
+    "fs-readfile-promise": "^2.0.1",
+    "through2": "^2.0.1"
   }
 }
