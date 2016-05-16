@@ -1,0 +1,5 @@
+ import {'../typeFive'} // TODO: Not working at this point 
+
+type TypeFour extends String {
+	validate() { true}
+}

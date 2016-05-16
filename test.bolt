@@ -1,0 +1,6 @@
+import {'./typeTwo'}
+//import {'./typeOne'}
+path / {
+  read() {true}
+  write() {false}
+}

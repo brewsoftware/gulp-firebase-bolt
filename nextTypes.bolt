@@ -1,0 +1,4 @@
+
+type TopLevelType extends String {
+	validate() { true}
+}

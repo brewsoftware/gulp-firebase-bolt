@@ -1,0 +1,4 @@
+import {'./subSubTypes/typeFour'}
+type TypeThree extends String {
+	validate() { true}
+}
