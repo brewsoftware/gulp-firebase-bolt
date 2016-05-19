@@ -1,3 +1,4 @@
+import {'typesix'}
 
 type TypeFive extends String {
 	validate() { true}
