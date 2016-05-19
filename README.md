@@ -10,27 +10,41 @@ Bolt compiler for firebase based on bolt specifications
 # Using the gulp plugin
 
 You can easily install the gulp bolt compiler using [npm](https://docs.npmjs.com/cli/install):
-    $ npm install gulp-firebase-bolt 
+
+    $ npm install gulp-firebase-bold
 
 The compiler uses through2 to manage it's streams. Any file piped into firebase will be compiled out to a corresponding JSON file.
+
     gulp.src('test.bolt')
     .pipe(firebase())
     .pipe(gulp.dest('./output/'));
 
 For more examples please see the 'tests' directory
 
-# Local module support
+# Module support
 
-Local modules should be supported by default, see the bolt compiler spec for details.
+Local & Global modules are now supported , see the bolt compiler (When updated) spec for details.
 
-# Global modules
+
+# Global Module
+
+    import {'module'} 
+
+Each modules is assumed to have an entry point under the 'node_modules/firebase-bolt-module/index.bolt' filename and will be processed from here.
 
 At the time of writing this there are no known global modules. I will publish some shortly which can be installed using npm as well
 
     $ npm install firebase-bolt-module
 
-Each modules is assumed to have an entry point under the 'node_modules/firebase-bolt-module/index.bolt' filename and will be processed from here.
+# Local Modules
 
+    import {'./module'} 
+
+A file in the relative local directory named module.bolt.
+
+# Known issues
+
+TBA: Currently hyphes break global modules due to a naive syntax implementaiton. This will be updated shortly.
 
 # Further work
 
