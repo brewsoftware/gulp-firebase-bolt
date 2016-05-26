@@ -1,3 +1,4 @@
+import {'./typeTwo'}
 type TypeOne extends String {
 	validate() { true}
 }

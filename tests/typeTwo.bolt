@@ -1,5 +1,1 @@
-//import {'./typeTwoAlpha'}
 import {'./typeTwoBeta'}
-type TypeTwo extends String {
-	validate() { true}
-}

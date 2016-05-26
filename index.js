@@ -13,7 +13,7 @@ const PLUGIN_NAME = 'gulp-firebase-bolt';
 
 module.exports = function() {
     // creating a stream through which each file will pass
-    var cwd ='';
+      var cwd ='';
       var stream = through.obj(function(file, enc, cb) {
         var self = this;
         var newfile = file.clone({contents: false});
@@ -57,17 +57,12 @@ module.exports = function() {
       });
       // returning the file stream
     return stream;
+    /*
+      *************************** Function Section ****************************
+    */
+    var sym; // Global symbols variable
 
-    function readSuccess(symbols, cb,newfile){
-      var gen = new bolt.Generator(symbols);
-      console.log(symbols);
-      var rules = gen.generateRules();
-      var output =  JSON.stringify(rules, null, 2);
-      //file.contents.end(output);
-      newfile.contents = new Buffer(output);
-      newfile.path = newfile.path.replace('.bolt','.json');
-      cb(null, newfile);// finished
-    };
+
     function parsePath(path) {
        var extname = Path.extname(path);
        return {
@@ -76,18 +71,23 @@ module.exports = function() {
          extname: extname
        };
      }
-     var sym;
+
     function parserWrapper(data) {
       var promises = [];
       sym = bolt.parse(data);
+      var currentDirectoryContext = cwd;
+      console.log("current context" + currentDirectoryContext);
       while (sym.imports.length > 0) {
           var next = sym.imports.pop();
+          next = getNextFilenameFromContextAndImport({
+            filename: cwd + '/tempfilename',
+            scope: false
+          }, next);
           var p = processRecursive(next);
           promises.push(p);
       } // end while
       var retPromise = new Promise(function(resolve, reject){
         Promise.all(promises).then(function(){
-          console.log("sym:");
           console.log(sym);
           resolve(sym);
         }).catch(function(ex){
@@ -96,16 +96,44 @@ module.exports = function() {
       });
       return retPromise;
     }; // end function
+    function getNextFilenameFromContextAndImport(current, nextImport){
+      // Convert absolute filenames to relative
+      // Convert relative filenames to include original path
 
+      var currentFn = current.filename.split('/');
+      var nextFn = nextImport.filename.split('/');
+      if(nextImport.scope){
+        nextImport.filename = './node_modules/' + nextImport.filename + '/index';
+      } else{
+        // import {./something} -> ['.','something'] -> ''
+        // import {./something/anotherthing} -> ['.','something','anotherthing'] -> something
+
+        currentFn.pop();
+//        var delim = nextFn.shift();
+        while(nextFn[0] === '..'){
+          currentFn.pop();
+          nextFn.shift();
+        }
+        if(nextFn[0] === '.'){
+          nextFn.shift();
+        }
+        nextImport.filename  = currentFn.concat(nextFn).join('/');
+      }
+
+      return nextImport;
+    }
     function processRecursive(next){
 
       var promises = [];
-      console.log('next:' + JSON.stringify(next));
       var p = new Promise(function(resolve, reject) {
-        readfile( cwd +  '/' + next.filename + '.bolt').then(
+
+        console.log("Reading: " + JSON.stringify(next));
+        readfile(next.filename  + '.bolt').then(
           function(subData) {
+            console.log("Success Reading: " + next.filename + '.bolt');
             var subPromises = [];
             var newRules = bolt.parse(subData.toString());
+            console.log('*******' + next.filename);
             if (newRules) {
                 newRules.imports.map(function (obj) {
                     sym.imports.push(obj);
@@ -129,21 +157,9 @@ module.exports = function() {
               scope: fale = local
             }
             */
-            console.log('imports:' + JSON.stringify(newRules.imports));
             for(var impKey in newRules.imports){
-                var imp = newRules.imports[impKey];
-                var nextFn = next.filename.split('/');
-                var currentFn = imp.filename.split('/');
-                if(imp.scope){
-                  var relPath = '';
-                  for(var j = 0; j < cwd.split('/').length-1;j++){
-                    relPath = relPath + '../';
-                  }
-                  imp.filename =relPath+ '/node_modules/' + imp.filename + '/index';
-                } else{
-                  nextFn.pop();
-                  imp.filename  = nextFn.concat(currentFn).join('/');
-                }
+                var imp = getNextFilenameFromContextAndImport(next, newRules.imports[impKey]);
+
                 // check for global modules
                 var inner = processRecursive(imp);
                 subPromises.push(inner);
@@ -168,4 +184,18 @@ module.exports = function() {
     });
     return retPromise;
     }
+    /*
+    * readSuccess -Final call with all the symboly loaded
+    * calls the original parser function after the parser has succeeded.
+    */
+    function readSuccess(symbols, cb, newfile){
+      var gen = new bolt.Generator(symbols);
+      var rules = gen.generateRules();
+      var output =  JSON.stringify(rules, null, 2);
+      newfile.contents = new Buffer(output);
+      newfile.path = newfile.path.replace('.bolt','.json');
+      cb(null, newfile);// finished
+    };
+
+
 };

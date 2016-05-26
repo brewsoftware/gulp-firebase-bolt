@@ -1,6 +1,6 @@
 {
   "name": "gulp-firebase-bolt",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "First release of stable functionality",
   "main": "index.js",
   "scripts": {
@@ -22,13 +22,15 @@
   },
   "homepage": "https://github.com/brewsoftware/gulp-firebase-bolt#readme",
   "devDependencies": {
+    "firebase-bolt-validation": "0.0.1",
     "gulp": "^3.9.1"
   },
   "dependencies": {
     "firebase": "^2.4.2",
     "firebase-bolt": "git://github.com/brewsoftware/bolt.git",
-    "path": "^0.12.7",
+    "firebase-bolt-validation": "0.0.2",
     "fs-readfile-promise": "^2.0.1",
+    "path": "^0.12.7",
     "through2": "^2.0.1"
   }
 }

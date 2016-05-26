@@ -1,6 +1,15 @@
-import {'./typeTwo'}
-//import {'./typeOne'}
+import {'firebase-bolt-validation'}
+import {'./typeOne'}
+
 path / {
   read() {true}
   write() {false}
+}
+
+path /test {
+  read() {true}
+}
+
+path /ascii is Ascii {
+  read() {true}
 }
