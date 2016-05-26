@@ -48,7 +48,7 @@ At the time of writing this there are no known global modules. I will publish so
     import {'./module'}
 
 A file in the relative local directory named module.bolt.
-
+ 
 # Further work
 
 This plugin is a re-write of the original bolt compiler listed above. I am using the bolt parser project for all the rules definitions which is currently in beta. Please check back from time to time for updated and all feedback is welcome.
