@@ -1,10 +1,10 @@
-# gulp-firebase-bolt 
+# gulp-firebase-bolt
 Bolt compiler for firebase based on bolt specifications
 
 # Dependent Project
 
   - [Firebase Bolt](https://www.github.com/firebase/bolt) - Bolt Parser implementation.
-  - [Firebase Bolt - Monkey Patch](https://www.github.com/brewsoftware/bolt) - Monkey path to test the new compiler syntax with this plugin.
+  - [Firebase Bolt - Monkey Patch](https://www.github.com/brewsoftware/bolt) - Monkey patch to test the new compiler syntax with this plugin.
   - [Firebase Security and Modeling Language](https://www.github.com/firebase/bolt/docs/language.md) - Language documentation and syntax
 
 # Using the gulp plugin
@@ -28,9 +28,16 @@ Local & Global modules are now supported , see the bolt compiler (When updated) 
 
 # Global Module
 
-    import {'module'} 
+    import {'module'}
 
 Each modules is assumed to have an entry point under the 'node_modules/firebase-bolt-module/index.bolt' filename and will be processed from here.
+
+If you are interested I have started a validation modules that can be imported as
+
+    $npm install 'firebase-bolt-validation'
+
+    import {'firebase-bolt-validation'}
+
 
 At the time of writing this there are no known global modules. I will publish some shortly which can be installed using npm as well
 
@@ -38,16 +45,12 @@ At the time of writing this there are no known global modules. I will publish so
 
 # Local Modules
 
-    import {'./module'} 
+    import {'./module'}
 
 A file in the relative local directory named module.bolt.
 
-# Known issues
-
-TBA: Currently hyphes break global modules due to a naive syntax implementaiton. This will be updated shortly.
-
 # Further work
 
-This plugin is a re-write of the original bolt compiler listed above. I am using the bolt parser project for all the rules definitions which is currently in beta. Please check back from time to time for updated and all feedback is welcome. 
+This plugin is a re-write of the original bolt compiler listed above. I am using the bolt parser project for all the rules definitions which is currently in beta. Please check back from time to time for updated and all feedback is welcome.
 
 If you are interested in aliases please open an issue and +1 it. Although I have included them in the spec they aren't implemented in the compiler. At this time I don't consider them a key feature.
