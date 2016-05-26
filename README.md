@@ -42,9 +42,6 @@ At the time of writing this there are no known global modules. I will publish so
 
 A file in the relative local directory named module.bolt.
 
-# Known issues
-
-TBA: Currently hyphes break global modules due to a naive syntax implementaiton. This will be updated shortly.
 
 # Further work
 
