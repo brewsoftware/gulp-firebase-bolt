@@ -11,7 +11,7 @@ Bolt compiler for firebase based on bolt specifications
 
 You can easily install the gulp bolt compiler using [npm](https://docs.npmjs.com/cli/install):
 
-    $ npm install gulp-firebase-bold
+    $ npm install gulp-firebase-bolt
 
 The compiler uses through2 to manage it's streams. Any file piped into firebase will be compiled out to a corresponding JSON file.
 
