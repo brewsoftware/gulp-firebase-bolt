@@ -150,6 +150,11 @@ module.exports = function() {
                     sym.schema[schemaKey] = newRules.schema[schemaKey];
                 }
             }
+            for (var pathKey in newRules.paths) {
+                if (newRules.paths.hasOwnProperty(pathKey)) {
+                    sym.paths[pathKey] = newRules.paths[pathKey];
+                }
+            }
             /*
             {
               filename:
